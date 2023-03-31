@@ -92,6 +92,10 @@ function App() {
     setSelectedCard(card);
   };
 
+  const handleInfoTooltip = () => {
+    setIsInfoTooltipOpen(true);
+  };
+
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -177,13 +181,13 @@ function App() {
       .registerSignUp(data)
       .then((data) => {
         setIsRegSuccessful(true);
-        isOpen();
-        navigate.push('/sign-in');
+        handleInfoTooltip();
+        navigate('/sign-in');
       })
       .catch((err) => {
         console.log(err);
         setIsRegSuccessful(false);
-        isOpen();
+        handleInfoTooltip();
       });
   };
 
@@ -194,13 +198,14 @@ function App() {
         setLoggedIn(true);
         localStorage.setItem('jwt', data.token);
         handleTokenCheck();
-        navigate.push('/');
+        navigate('/');
       })
       .catch((err) => {
         console.log(err);
-        isOpen();
+        handleInfoTooltip();
       });
   };
+
   // Проверка токена
   const handleTokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
@@ -226,11 +231,20 @@ function App() {
     }
   }, [loggedIn]);
 
+  // Выход
+  const handleSignOut = () => {
+    setLoggedIn(false);
+    localStorage.removeItem('jwt');
+    navigate('/sign-in');
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header
+          loggedIn={loggedIn}
+          email={authEmail}
+          onSignOut={handleSignOut}
         />
         <Routes>
           <Route path="/sign-in"
@@ -263,15 +277,6 @@ function App() {
             }
           />
         </Routes>
-        {/* <Main
-          onEditProfile={() => setIsEditProfilePopupOpen(true)}
-          onAddPlace={() => setIsAddPlacePopupOpen(true)}
-          onEditAvatar={() => setIsEditAvatarPopupOpen(true)}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDeleteClick={handleCardDeleteClick}
-          cards={cards}
-        /> */}
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}

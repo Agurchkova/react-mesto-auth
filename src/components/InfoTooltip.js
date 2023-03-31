@@ -3,7 +3,7 @@ import crossMarkUnSuccess from '../images/image-unsuccess.svg';
 
 function InfoTooltip({ isOpen, onClose, isSuccess }) {
     return (
-        <div className={`popup popup_type_infotooltip ${isOpen ? 'popup_opened' : ""}`}>
+        <div className={`popup ${isOpen ? 'popup_opened' : ""}`}>
             <div className="popup__container">
                 <button
                     type="button"

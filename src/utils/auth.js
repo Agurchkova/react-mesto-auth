@@ -8,7 +8,7 @@ const headers = {
 };
 
 export const registerSignUp = ({ email, password }) => {
-    return fetch(`{$BASE_URL}/signup`, {
+    return fetch(`${BASE_URL}/signup`, {
         method: 'POST',
         headers,
         body: JSON.stringify({ email, password }),

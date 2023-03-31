@@ -26,6 +26,7 @@ function Login({ onLogin }) {
                     value={values.email || ''}
                     onChange={handleChange}
                     required
+                    autoComplete="email"
                 />
                 <input
                     className="auth__input"
@@ -37,6 +38,7 @@ function Login({ onLogin }) {
                     onChange={handleChange}
                     minLength="8"
                     required
+                    autoComplete="password"
                 />
                 <button className="auth__button"
                     type="submit">
