@@ -179,7 +179,7 @@ function App() {
   const handleRegisterSignUp = (data) => {
     return auth
       .registerSignUp(data)
-      .then((data) => {
+      .then(() => {
         setIsRegSuccessful(true);
         handleInfoTooltip();
         navigate('/sign-in');
@@ -243,7 +243,7 @@ function App() {
       <div className="page">
         <Header
           loggedIn={loggedIn}
-          email={authEmail}
+          userEmail={authEmail}
           onSignOut={handleSignOut}
         />
         <Routes>

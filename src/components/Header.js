@@ -1,9 +1,9 @@
 import React from "react";
-import { Link, useLocation } from 'react-router-dom';
-
 import logoHeader from '../images/logo.svg';
+import { useLocation, Link } from 'react-router-dom';
 
-function Header({ loggedIn, email, onSignOut }) {
+function Header({ loggedIn, userEmail, onSignOut }) {
+
     const location = useLocation();
 
     return (
@@ -26,15 +26,15 @@ function Header({ loggedIn, email, onSignOut }) {
                 </Link>
             )}
             {loggedIn && (
-                <nav className="header__auth">
+                <div className="header__auth">
                     <p className="header__email">
-                        {email}
+                        {userEmail}
                     </p>
                     <button className="header__button-sign-out"
                         onClick={() => onSignOut()}>
                         Выйти
                     </button>
-                </nav>
+                </div>
             )}
         </header>
     );
