@@ -40,3 +40,4 @@ cd react-mesto-auth
 npm install
 npm start
 ```
+<p align="right" dir="auto"><a href="#readme-top">Наверх</a></p>
