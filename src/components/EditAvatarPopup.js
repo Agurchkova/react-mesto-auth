@@ -1,31 +1,36 @@
 import { useRef, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
+import useFormWithValidation from "../hooks/useFormWithValidation";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar,
-    onLoading }) {
+    onLoading, btnText, loadingTxt }) {
+
+    const { handleChange, resetForm, errors, isValid } = useFormWithValidation();
+
     const avatarRef = useRef();
 
-    function handleSubmit(e) {
-        e.preventDefault();
+    useEffect(() => {
+        avatarRef.current.value = '';
+        resetForm();
+    }, [resetForm, isOpen]);
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
 
         onUpdateAvatar({
             avatar: avatarRef.current.value,
         });
     }
-    useEffect(() => {
-        avatarRef.current.value = '';
-    }, [isOpen]);
 
     return (
         <PopupWithForm
             name="EditAvatarPopup"
             title="Обновить аватар"
-            btnText="Сохранить"
-            loadingTxt="Сохранение..."
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
             onLoading={onLoading}
+            resetForm={resetForm}
         >
             <label>
                 <input
@@ -35,10 +40,19 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar,
                     name="avatar"
                     id="input-avatar"
                     required
-                    ref={avatarRef} />
+                    ref={avatarRef}
+                    onInput={handleChange}
+                />
                 <span
                     className="popup__input-error"
-                    id="input-avatar-error" />
+                    id="input-avatar-error">
+                    {errors.avatar}
+                </span>
+                <button
+                    className={`popup__save-button button`}
+                    type="submit" disabled={!isValid} >
+                    {onLoading ? "Сохранение..." : "Сохранить"}
+                </button>
             </label>
         </PopupWithForm >
     );

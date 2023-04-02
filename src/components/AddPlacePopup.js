@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
-import useForm from "../hooks/useForm";
+import useFormWithValidation from "../hooks/useFormWithValidation";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace,
-    onLoading }) {
-    const { values, handleChange, resetForm } = useForm();
+    onLoading, btnText, loadingTxt }) {
+    const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
 
     useEffect(() => {
         resetForm();
@@ -23,8 +23,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace,
         <PopupWithForm
             name="AddPlacePopup"
             title="Новое место"
-            btnText="Создать"
-            loadingTxt="Добавление..."
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
@@ -45,7 +43,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace,
                 />
                 <span
                     className="popup__input-error"
-                    id="input-title-error" />
+                    id="input-name-error">
+                    {errors.name}
+                </span>
             </label>
             <label>
                 <input
@@ -60,7 +60,14 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace,
                 />
                 <span
                     className="popup__input-error"
-                    id="input-url-error" />
+                    id="input-name-error">
+                    {errors.link}
+                </span>
+                <button
+                    className={`popup__save-button button`}
+                    type="submit" disabled={!isValid} >
+                    {onLoading ? "Добавление..." : "Создать"}
+                </button>
             </label>
         </PopupWithForm>
     );

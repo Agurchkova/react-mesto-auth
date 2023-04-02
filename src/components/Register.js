@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useForm from '../hooks/useForm';
+import useFormWithValidation from '../hooks/useFormWithValidation';
 
 function Register({ onRegister }) {
-    const { values, handleChange } = useForm();
+    const { values, handleChange, errors } = useFormWithValidation();
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
@@ -14,8 +14,9 @@ function Register({ onRegister }) {
         <>
             <div className="auth">
                 <h2 className="auth__title">Регистрация</h2>
-                <form className="auth__form"
-                    onSubmit={handleSubmit}>
+                <form className="form auth__form"
+                    onSubmit={handleSubmit}
+                    noValidate>
                     <input
                         className="auth__input"
                         placeholder="Email"
@@ -27,6 +28,9 @@ function Register({ onRegister }) {
                         required
                         autoComplete="email"
                     />
+                    <span className="auth__error">
+                        {errors.email}
+                    </span>
                     <input
                         className="auth__input"
                         placeholder="Пароль"
@@ -39,6 +43,9 @@ function Register({ onRegister }) {
                         required
                         autoComplete="password"
                     />
+                    <span className="auth__error">
+                        {errors.password}
+                    </span>
                     <button className="auth__button"
                         type="submit">
                         Зарегистрироваться

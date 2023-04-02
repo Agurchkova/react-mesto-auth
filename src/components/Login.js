@@ -1,8 +1,8 @@
 import React from 'react';
-import useForm from '../hooks/useForm';
+import useFormWithValidation from '../hooks/useFormWithValidation';
 
 function Login({ onLogin }) {
-    const { values, handleChange } = useForm({});
+    const { values, handleChange, errors } = useFormWithValidation({});
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
@@ -15,8 +15,9 @@ function Login({ onLogin }) {
     return (
         <div className="auth">
             <h2 className="auth__title">Вход</h2>
-            <form className="auth__form"
-                onSubmit={handleSubmit}>
+            <form className="form auth__form"
+                onSubmit={handleSubmit}
+                noValidate>
                 <input
                     className="auth__input"
                     placeholder="Email"
@@ -28,6 +29,9 @@ function Login({ onLogin }) {
                     required
                     autoComplete="email"
                 />
+                <span className="auth__error">
+                    {errors.email}
+                </span>
                 <input
                     className="auth__input"
                     placeholder="Пароль"
@@ -40,6 +44,9 @@ function Login({ onLogin }) {
                     required
                     autoComplete="password"
                 />
+                <span className="auth__error">
+                    {errors.password}
+                </span>
                 <button className="auth__button"
                     type="submit">
                     Войти

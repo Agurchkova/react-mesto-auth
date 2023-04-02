@@ -33,14 +33,17 @@ function ConfirmationDltPopup({ isOpen, onClose, card, onSubmit, onLoading,
         <PopupWithForm
             name="confirmationForm"
             title="Вы уверены?"
-            btnText="Удалить"
-            loadingTxt="Удаление..."
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleConfirmiation}
             onLoading={onLoading}
             onCloseEsc={onCloseEsc}
             onCloseOverlay={onCloseOverlay}>
+            <button
+                className={`popup__save-button button`}
+                type="submit">
+                {onLoading ? "Удаление..." : "Удалить"}
+            </button>
         </PopupWithForm>
     )
 }

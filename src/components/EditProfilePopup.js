@@ -1,19 +1,20 @@
 import React, { useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import useForm from "../hooks/useForm";
+import useFormWithValidation from "../hooks/useFormWithValidation";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser,
-    onLoading }) {
+    onLoading, btnText, loadingTxt }) {
 
     const currentUser = useContext(CurrentUserContext);
-    const { values, handleChange, resetForm } = useForm();
+    const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
 
     useEffect(() => {
         currentUser ? resetForm(currentUser) : resetForm();
     }, [currentUser, resetForm, isOpen]);
 
     function handleSubmit(e) {
+
         // Запрещаем браузеру переходить по адресу формы
         e.preventDefault();
         // Передаём значения управляемых компонентов во внешний обработчик
@@ -27,8 +28,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser,
         <PopupWithForm
             name="EditProfilePopup"
             title="Редактировать профиль"
-            btnText="Сохранить"
-            loadingTxt="Сохранение..."
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
@@ -49,7 +48,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser,
                 />
                 <span
                     className="popup__input-error"
-                    id="input-name-error" />
+                    id="input-name-error">
+                    {errors.name}
+                </span>
             </label>
             <label>
                 <input
@@ -66,7 +67,14 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser,
                 />
                 <span
                     className="popup__input-error"
-                    id="input-job-error" />
+                    id="input-job-error">
+                    {errors.about}
+                </span>
+                <button
+                    className={`popup__save-button button`}
+                    type="submit" disabled={!isValid} >
+                    {onLoading ? "Сохранение..." : "Сохранить"}
+                </button>
             </label>
         </PopupWithForm >
     );

@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import useFormWithValidation from "../hooks/useFormWithValidation";
 
-function PopupWithForm({ isOpen, name, title, onClose, children, onSubmit,
-    onLoading, loadingTxt, btnText }) {
+function PopupWithForm({ isOpen, name, title, onClose,
+    children, onSubmit }) {
+
+    const { resetForm } = useFormWithValidation();
+    const currentUser = useContext(CurrentUserContext);
+
+    useEffect(() => {
+        currentUser ? resetForm(currentUser) : resetForm();
+    }, [resetForm, isOpen, currentUser]);
 
     return (
-        <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
+        <div className={`popup popup_type_${name} 
+        ${isOpen ? "popup_opened" : ""}`}>
             <div className="popup__container">
                 <button
                     type="button"
@@ -12,16 +22,12 @@ function PopupWithForm({ isOpen, name, title, onClose, children, onSubmit,
                     aria-label="Закрыть окно"
                     onClick={onClose} />
                 <form
-                    className="popup__form"
+                    className="form popup__form"
                     name={`${name}`}
-                    onSubmit={onSubmit}>
+                    onSubmit={onSubmit}
+                    noValidate>
                     <h2 className="popup__title">{title}</h2>
                     {children}
-                    <button
-                        className={`popup__save-button button`}
-                        type="submit">
-                        {onLoading ? loadingTxt : btnText}
-                    </button>
                 </form>
             </div>
         </div>

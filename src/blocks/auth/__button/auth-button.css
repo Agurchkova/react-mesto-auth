@@ -19,3 +19,10 @@
     opacity: 0.85;
     cursor: pointer;
 }
+
+@media screen and (max-width: 648px) {
+    .auth__button {
+        width: 260px;
+        font-size: 16px;
+    }
+}

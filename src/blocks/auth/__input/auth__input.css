@@ -13,6 +13,10 @@
     padding: 0 0 13px;
 }
 
-.auth__input:nth-of-type(2) {
-    margin-top: 30px;
+@media screen and (max-width: 648px) {
+    .auth__input {
+        margin: 0 auto;
+        width: 260px;
+
+    }
 }
