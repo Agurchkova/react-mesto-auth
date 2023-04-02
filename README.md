@@ -40,4 +40,4 @@ cd react-mesto-auth
 npm install
 npm start
 ```
-<a href="#" title="Вернуться к началу">Наверх</a>
+<p align="right"><a href="#" title="Вернуться к началу" >Наверх</a></p>
