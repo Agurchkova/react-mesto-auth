@@ -28,21 +28,24 @@ function App() {
   const [deletedItemId, setDeletedItemId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [statusMessage, setStatusMessage] = useState({ message: '' });
   const navigate = useNavigate();
 
   const [isRegSuccessful, setIsRegSuccessful] = useState(false);
   const [authEmail, setAuthEmail] = useState('');
 
   useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([userData, card]) => {
-        setCurrentUser(userData);
-        setCards(card);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+    if (loggedIn) {
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([userData, card]) => {
+          setCurrentUser(userData);
+          setCards(card);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [loggedIn]);
 
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
@@ -181,12 +184,14 @@ function App() {
       .registerSignUp(data)
       .then(() => {
         setIsRegSuccessful(true);
+        setStatusMessage({ message: "Вы успешно зарегистрировались!" })
         handleInfoTooltip();
         navigate('/sign-in');
       })
       .catch((err) => {
         console.log(err);
         setIsRegSuccessful(false);
+        setStatusMessage({ message: "Что-то пошло не так! Попробуйте ещё раз." })
         handleInfoTooltip();
       });
   };
@@ -202,6 +207,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setStatusMessage({ message: "Что-то пошло не так! Попробуйте ещё раз." })
         handleInfoTooltip();
       });
   };
@@ -310,6 +316,7 @@ function App() {
           onClose={closeAllPopups}
           isOpen={isInfoTooltipOpen}
           isSuccess={isRegSuccessful}
+          statusMessage={statusMessage}
         />
       </div>
       <Footer />

@@ -1,7 +1,7 @@
 import checkMarkSuccess from '../images/image-success.svg';
 import crossMarkUnSuccess from '../images/image-unsuccess.svg';
 
-function InfoTooltip({ isOpen, onClose, isSuccess }) {
+function InfoTooltip({ isOpen, onClose, isSuccess, statusMessage }) {
     return (
         <div className={`popup ${isOpen ? 'popup_opened' : ""}`}>
             <div className="popup__container">
@@ -17,9 +17,7 @@ function InfoTooltip({ isOpen, onClose, isSuccess }) {
                     className="popup__signup-image"
                 />
                 <h2 className="popup__signup-title">
-                    {isSuccess
-                        ? 'Вы успешно зарегистрировались!'
-                        : 'Что-то пошло не так! Попробуйте ещё раз.'}
+                    {statusMessage.message}
                 </h2>
             </div>
         </div>

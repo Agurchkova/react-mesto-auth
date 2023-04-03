@@ -1,8 +1,8 @@
 import React from "react";
 import logoHeader from '../images/logo.svg';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, Routes, Route } from 'react-router-dom';
 
-function Header({ loggedIn, userEmail, onSignOut }) {
+function Header({ userEmail, onSignOut }) {
 
     const location = useLocation();
 
@@ -13,29 +13,35 @@ function Header({ loggedIn, userEmail, onSignOut }) {
                 className="header__logo"
                 alt="Логотип Место Россия"
             />
-            {location.pathname === "/sign-in" && (
-                <Link to="/sign-up"
-                    className="header__link">
-                    Регистрация
-                </Link>
-            )}
-            {location.pathname === "/sign-up" && (
-                <Link to="/sign-up"
-                    className="header__link">
-                    Войти
-                </Link>
-            )}
-            {loggedIn && (
-                <div className="header__auth">
-                    <p className="header__email">
-                        {userEmail}
-                    </p>
-                    <button className="header__button-sign-out"
-                        onClick={() => onSignOut()}>
-                        Выйти
-                    </button>
-                </div>
-            )}
+            <Routes>
+                <Route
+                    path='/sign-up'
+                    element={
+                        <Link to="/sign-in"
+                            className="header__link"> Войти
+                        </Link>}
+                />
+                <Route
+                    path='/sign-in'
+                    element={
+                        <Link to="/sign-up"
+                            className="header__link"> Регистрация
+                        </Link>}
+                />
+                <Route path="/" element={
+                    <>
+                        <div className="header__auth">
+                            <p className="header__email">
+                                {userEmail}
+                            </p>
+                            <button className="header__button-sign-out"
+                                onClick={() => onSignOut()}>
+                                Выйти
+                            </button>
+                        </div>
+                    </>
+                } />
+            </Routes>
         </header>
     );
 }
