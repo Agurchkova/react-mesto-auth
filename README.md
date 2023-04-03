@@ -29,7 +29,8 @@
 
 ### React JS
 
-## Ссылка на макет:
+## Ссылки на проект и макет:
+### <a href="https://agurchkova.github.io/react-mesto-auth/">Проект на Github Pages</a>
 ### <a href="https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/JavaScript.-Sprint-12?node-id=4453%3A324&t=y2f6cT9X8vdMccxY-1">Макет в Figma</a>
 
 ### Инструкция по установке:
@@ -39,3 +40,4 @@ cd react-mesto-auth
 npm install
 npm start
 ```
+<p align="right"><a href="#" title="Вернуться к началу" >Наверх</a></p>
