@@ -184,14 +184,14 @@ function App() {
       .registerSignUp(data)
       .then(() => {
         setIsRegSuccessful(true);
-        setStatusMessage({ message: "Вы успешно зарегистрировались!" })
+        setStatusMessage({ message: 'Вы успешно зарегистрировались!' })
         handleInfoTooltip();
         navigate('/sign-in');
       })
       .catch((err) => {
         console.log(err);
         setIsRegSuccessful(false);
-        setStatusMessage({ message: "Что-то пошло не так! Попробуйте ещё раз." })
+        setStatusMessage({ message: 'Что-то пошло не так! Попробуйте ещё раз.' })
         handleInfoTooltip();
       });
   };
@@ -207,7 +207,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setStatusMessage({ message: "Что-то пошло не так! Попробуйте ещё раз." })
+        setStatusMessage({ message: 'Что-то пошло не так! Попробуйте ещё раз.' })
         handleInfoTooltip();
       });
   };
