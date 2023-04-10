@@ -3,7 +3,7 @@ import PopupWithForm from "./PopupWithForm";
 import useFormWithValidation from "../hooks/useFormWithValidation";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar,
-    onLoading, btnText, loadingTxt }) {
+    onLoading }) {
 
     const { handleChange, resetForm, errors, isValid } = useFormWithValidation();
 
@@ -26,11 +26,14 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar,
         <PopupWithForm
             name="EditAvatarPopup"
             title="Обновить аватар"
+            btnText="Сохранить"
+            loadingTxt="Сохранение..."
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
             onLoading={onLoading}
             resetForm={resetForm}
+            isValid={isValid}
         >
             <label>
                 <input
@@ -48,11 +51,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar,
                     id="input-avatar-error">
                     {errors.avatar}
                 </span>
-                <button
-                    className={`popup__save-button button`}
-                    type="submit" disabled={!isValid} >
-                    {onLoading ? "Сохранение..." : "Сохранить"}
-                </button>
             </label>
         </PopupWithForm >
     );

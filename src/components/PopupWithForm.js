@@ -1,16 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import useFormWithValidation from "../hooks/useFormWithValidation";
-
 function PopupWithForm({ isOpen, name, title, onClose,
-    children, onSubmit }) {
-
-    const { resetForm } = useFormWithValidation();
-    const currentUser = useContext(CurrentUserContext);
-
-    useEffect(() => {
-        currentUser ? resetForm(currentUser) : resetForm();
-    }, [resetForm, isOpen, currentUser]);
+    children, onSubmit, onLoading, loadingTxt, btnText, isValid }) {
 
     return (
         <div className={`popup popup_type_${name} 
@@ -28,6 +17,11 @@ function PopupWithForm({ isOpen, name, title, onClose,
                     noValidate>
                     <h2 className="popup__title">{title}</h2>
                     {children}
+                    <button
+                        className="popup__save-button button"
+                        type="submit" disabled={!isValid}>
+                        {onLoading ? loadingTxt : btnText}
+                    </button>
                 </form>
             </div>
         </div>

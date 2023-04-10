@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import useFormWithValidation from "../hooks/useFormWithValidation";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser,
-    onLoading, btnText, loadingTxt }) {
+    onLoading }) {
 
     const currentUser = useContext(CurrentUserContext);
     const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
@@ -28,10 +28,13 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser,
         <PopupWithForm
             name="EditProfilePopup"
             title="Редактировать профиль"
+            btnText="Сохранить"
+            loadingTxt="Сохранение..."
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
             onLoading={onLoading}
+            isValid={isValid}
         >
             <label>
                 <input
@@ -70,11 +73,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser,
                     id="input-job-error">
                     {errors.about}
                 </span>
-                <button
-                    className={`popup__save-button button`}
-                    type="submit" disabled={!isValid} >
-                    {onLoading ? "Сохранение..." : "Сохранить"}
-                </button>
             </label>
         </PopupWithForm >
     );
