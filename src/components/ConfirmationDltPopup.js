@@ -39,7 +39,7 @@ function ConfirmationDltPopup({ isOpen, onClose, card, onSubmit, onLoading,
                     onClick={onClose} />
                 <form
                     className="form popup__form"
-                    name={`confirmationForm`}
+                    name="confirmationForm"
                     onSubmit={handleConfirmiation}>
                     <h2 className="popup__title">Вы уверены?</h2>
                     <button
